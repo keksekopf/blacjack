@@ -1,9 +1,7 @@
 // Backend for blackjack app
 
-// Variables representing the value of 2 random cards
-let firstCard = Math.ceil(Math.random() *11)
-let secondCard = Math.ceil(Math.random() * 11)
-let cards[] = firstCard + secondCard
+// Array of cards
+let cards = [getRandomCard(), getRandomCard()]
 
 // Variable to track the state of the player's victory
 let hasBlackJack = false
@@ -16,7 +14,9 @@ let gameStart = false
 let message = ""
 
 // Sum the value of the two player cards
-let sum = firstCard + secondCard
+let sum = cards.reduce(
+    (partialSum, a) => partialSum + a, 0
+)
 
 // Perfect blackjack hand value
 let blackJack = 21
@@ -34,8 +34,10 @@ function startGame() {
 
 // Render the game 
 function renderGame() {
-    // Display the player's hand and their total value
-    playerCards.textContent = "Cards: " + firstCard + " & " + secondCard
+    playerCards.textContent = "Cards: "
+    for (i = 0; i < cards.length; i++) {
+        playerCards.textContent += cards[i] + " "
+    }
     cardsTotalValue.textContent = "Sum: " + sum
 
     // Check win condition
@@ -51,35 +53,15 @@ function renderGame() {
     messageEl.textContent = message
 }
 
+// Add a new card to the player's hand
 function drawCard() {
     console.log("Drawing a new card")
-    sum += Math.ceil(Math.random() * 11)
-    // playerCards.textContent = "Cards: " + firstCard + " & " + secondCard + " & " + thirdCard
+    let newCard = Math.ceil(Math.random() * 11)
+    cards.push(newCard)
+    sum += newCard
     startGame()
 }
 
-// function checkWin() {
-//     if (sum <= 20) {
-//         message = "Do you want to draw a new card?"
-//     } else if (sum === 21) {
-//         message = "You've got Blackjack!"
-//         hasBlackJack = true
-//     } else {
-//         message = "You're out of the game!"
-//         return isAlive = false
-//     }
-
-//     // Display the message
-//     messageEl.textContent = message
-// }
-
-// function displaySum() {
-//     cardsTotalValue.textContent = "Sum: " + sum
-// }
-
-// if (isAlive) {
-//     document.getElementById("start-btn").innerHTML = "Draw Card"
-//     event.target.onclick = drawCard
-// } else {
-//     document.getElementById("start-btn").innerHTML = "Game Over"
-// }
+function getRandomCard() {
+    return Math.ceil(Math.random() *11)
+}
