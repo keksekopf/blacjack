@@ -9,7 +9,7 @@
 
 body{
     background-image: url("resources/table-background.png");
-    background-size: center;
+    background-size: 200% auto;
     background-position: center center;
     background-repeat: no-repeat;
     background-color: #B8860B;
